@@ -1,11 +1,9 @@
 <x-app-layout>
     @section('hero')
-    <div class="w-full text-center py-32">
-        <h1 class="text-2xl md:text-3xl font-bold text-center lg:text-5xl text-gray-700">
-            <span class="text-teal-500">&lt;Lumina&gt;</span> <br><br>APIIT Space  
-        </h1>
-        <p class="text-gray-500 text-lg mt-1">Welcome to APIIT Student Blog</p>
-        <a class="px-3 py-2 text-lg text-white bg-teal-500 rounded mt-5 inline-block"
+    <div class="bg-gradient-to-r from-teal-600 via-teal-300 to-white w-full text-center py-28">
+            <img src="{{ asset('images/lumina1.png') }}" alt="lumina1" class="w-25 h-auto mx-auto"  >
+        <p class="text-gray-500 text-lg mt-1 font-semibold">WELCOME TO APIIT STUDENT BLOG</p>
+        <a class="px-3 py-2 text-lg text-white bg-gray-900 rounded mt-5 inline-block"
             href="http://127.0.0.1:8000/blog">Start
             Reading</a>
     </div>
@@ -22,8 +20,8 @@
                         <p>Here, you'll find tips and advice on navigating academics, information about upcoming events and activities, campus life, and beyond, as well as personal stories from your fellow students. We hope this blog will help you feel more connected to the APIIT community and provide you with the resources you need to succeed.</p>
                     </div>
                     <div class="grid grid-cols-2 gap-4 mt-8">
-                        <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-                        <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+                        <img class="w-full rounded-lg" src="{{ asset('images/about2.jpg') }}" alt="APIIT building">
+                        <img class="mt-4 w-full lg:mt-10 rounded-lg" src="{{ asset('images/about3.jpg') }}" alt="APIIT students">
                     </div>
                 </div>
             </section>
