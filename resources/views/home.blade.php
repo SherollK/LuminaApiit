@@ -38,7 +38,7 @@
                 </div>
             </div>
             <a class="mt-10 block text-center text-lg text-gray-900 font-semibold"
-                href="http://127.0.0.1:8000/blog">More
+                href="/blog">More
                 Posts ></a>
         </div>
         <hr>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <a class="mt-10 block text-center text-lg text-gray-900 font-semibold"
-                href="http://127.0.0.1:8000/blog">More
+                href="/blog">More
                 Posts ></a>
         </div>
 
