@@ -4,7 +4,7 @@
             <img src="{{ asset('images/lumina1.png') }}" alt="lumina1" class="w-25 h-auto mx-auto"  >
         <p class="text-gray-500 text-lg mt-1 font-semibold">WELCOME TO APIIT STUDENT BLOG</p>
         <a class="px-3 py-2 text-lg text-white bg-gray-900 rounded mt-5 inline-block"
-            href="http://127.0.0.1:8000/blog">Start
+            href="/blog">Start
             Reading</a>
     </div>
     @endsection
