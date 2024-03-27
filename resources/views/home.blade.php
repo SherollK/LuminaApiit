@@ -12,10 +12,10 @@
     <div class="mb-10 w-full">
 
         <div class="about">
-            <section class="bg-white dark:bg-gray-900">
+            <section class="bg-white">
                 <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-                    <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Sharing Your Story</h2>
+                    <div class="font-light text-gray-500 sm:text-lg">
+                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Sharing Your Story</h2>
                         <p class="mb-4">This blog is for you, the students of APIIT. It's a platform to share your experiences, stories, and insights about student life at our university.</p>
                         <p>Here, you'll find tips and advice on navigating academics, information about upcoming events and activities, campus life, and beyond, as well as personal stories from your fellow students. We hope this blog will help you feel more connected to the APIIT community and provide you with the resources you need to succeed.</p>
                     </div>
@@ -26,6 +26,7 @@
                 </div>
             </section>
         </div>
+        
         <hr>
         
         <div class="mb-16 px-4 md:px-0">
