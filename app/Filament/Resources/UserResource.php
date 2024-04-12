@@ -32,7 +32,13 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('role')
                     ->options(User::ROLES)
-                    ->required()
+                    ->required()->default('ROLE_USER'),
+                Forms\Components\Select::make('category')
+                    ->options(User::CATEGORIES),
+                Forms\Components\Select::make('degree')
+                    ->options(User::DEGREES),
+                Forms\Components\Select::make('year')
+                    ->options(User::LEVELS)
 
             ]);
     }
@@ -54,6 +60,15 @@ class UserResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('role')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('degree')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('year')
                     ->sortable()
                     ->searchable(),
             ])
