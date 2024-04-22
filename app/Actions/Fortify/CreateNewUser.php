@@ -24,10 +24,10 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            //'role' => request('role')->nullable(),
-            //'category'=> request('category')->nullable(),
-            //'year'=> request('year')->nullable(),
-            //'degree'=> request('degree')->nullable(),
+            'role' => request('role'),
+            'category'=> request('category'),
+            'year'=> request('year'),
+            'degree'=> request('degree'),
         ]);
     }
 }
