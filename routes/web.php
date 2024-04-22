@@ -24,6 +24,14 @@ Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
+/* Email verification */
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function(){
+    
+});
 
 

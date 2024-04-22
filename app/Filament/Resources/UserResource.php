@@ -21,6 +21,16 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
+        function isFormCreate(): bool
+        {
+            //if(getPages == create)
+            //{
+            //    return true;
+            //}
+
+            return true;
+        }
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -38,8 +48,14 @@ class UserResource extends Resource
                 Forms\Components\Select::make('degree')
                     ->options(User::DEGREES),
                 Forms\Components\Select::make('year')
-                    ->options(User::LEVELS)
-
+                    ->options(User::LEVELS),
+                isFormCreate() ? Forms\Components\TextInput::make('password')
+                    ->required()
+                    ->minLength(8) : null, // Add the field conditionally
+                isFormCreate() ? Forms\Components\TextInput::make('password_confirmation')
+                    ->label('Confirm Password')
+                    ->required()
+                    ->same('password') : null, // Add the field conditionally
             ]);
     }
 
@@ -102,5 +118,7 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
+    } 
+    
+    
 }
