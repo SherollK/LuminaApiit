@@ -37,6 +37,10 @@
                 {{ __('Profile') }}
             </x-dropdown-link>
 
+            <x-dropdown-link wire:navigate href="{{ route('posts.create') }}">
+                {{ __('Add Post') }}
+            </x-dropdown-link>
+
             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                 <x-dropdown-link wire:navigate href="{{ route('api-tokens.index') }}">
                     {{ __('API Tokens') }}

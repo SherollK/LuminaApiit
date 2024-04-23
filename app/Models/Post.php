@@ -23,10 +23,17 @@ class Post extends Model
         'body',
         'published_at',
         'featured',
+        'deleted_at',
+        'created_at',
+        'updated_at',
+        'status',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
     
     public function author()
@@ -51,7 +58,10 @@ class Post extends Model
     
     public function scopePublished($query)
     {
-        $query->where('published_at', '<=', Carbon::now());
+        $query->where([
+            ['published_at', '<=', Carbon::now()],
+            ['status', '=', 1],
+        ]);
     }
 
     public function scopeFeatured($query)
