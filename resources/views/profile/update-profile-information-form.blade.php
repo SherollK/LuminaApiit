@@ -1,4 +1,4 @@
-<x-form-section submit="updateProfileInformation">
+<x-form-section submit="UpdateUserProfileInformation">
     <x-slot name="title">
         {{ __('Profile Information') }}
     </x-slot>
@@ -59,6 +59,19 @@
             <x-input-error for="name" class="mt-2" />
         </div>
 
+          <script>console.log("$fields");</script>                          
+        
+        <!-- Extra columns 
+        @foreach ($fields as $fieldName => $fieldData)
+        <div>
+                @if (app($this->$policy)->viewField(Auth::user(), $fieldName)) <x-label for="{{ $fieldName }}" value="{{ $fieldData['label'] }}" />
+                    <x-input id="{{ $fieldName }}" type="{{ $fieldData['type'] }}" class="mt-1 block w-full" wire:model="state.{{ $fieldName }}" />
+                    <x-input-error for="{{ $fieldName }}" class="mt-2" />
+                @endif
+            @endforeach
+        </div>-->
+
+
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Email') }}" />
@@ -81,6 +94,10 @@
                 @endif
             @endif
         </div>
+
+        
+        
+
     </x-slot>
 
     <x-slot name="actions">
