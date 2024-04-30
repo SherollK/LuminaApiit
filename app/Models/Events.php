@@ -2,70 +2,77 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Scopes\AvailableEventsScope;
+use Carbon\Carbon;
 use Illuminate\Support\Str; 
 
-class Post extends Model
+
+
+
+
+class Events extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
         'title',
-        'sub_title',
         'slug',
         'image',
-        'body',
+        'description',
         'published_at',
-        'featured',
+        'date',
+        'time',
+        'location'
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'date' => 'date',
+     'availability' => 'boolean',
+      
+        // 'time' => 'time'
+
     ];
     
-    //from the userId gets the User object 
+
+    //need a global scope to show only events that are available. 
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new AvailableEventsScope());
+
+    // }
+
+    //Each event has an author
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    //Each event can have many categories 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+     //Finds out events that are available and not et has been held. 
+     //do we need this now that we have a global scope?
+    // public function availability($query)
+    // {
+    //     $query->where('date', '>=', Carbon::now());
+        
+    // }
 
 
-    public function likes()
+    public function getAvailabilityAttribute()
     {
-        return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
+        // Calculate availability based on the event date
+        return $this->date >= Carbon::today();
     }
     
-    //returns posts that were published before today. 
-
-    public function scopePublished($query)
-    {
-        $query->where('published_at', '<=', Carbon::now());
-    }
-
-    //returns posts that have the featured tag on 
-    public function scopeFeatured($query)
-    {
-        $query->where('featured', true);
-    }
-
-    
-
+    //gets category based filtering 
     public function scopeWithCategory($query, string $category)
     {
         $query->whereHas('categories', function ($query) use ($category) {
@@ -74,22 +81,16 @@ class Post extends Model
     }
 
 
-    //for events I think we need one to say which ones are not gone. 
-
-    //prolly used to show just a section of the text 
+    //getting the excerpt of really long paragrapgh
     public function getExcerpt()
     {
-        return Str::limit(strip_tags($this->body), 150);
+        return Str::limit(strip_tags($this->description), 150);
     }
 
 
-    //calculates reading time of the blog and makes evertithing alwas less than 1 min 
-    public function getReadingTime()
-    {
-        $mins = round(str_word_count($this->body) /250);
-        return ($mins < 1) ? 1 : $mins;
-    }
-    
+
+    //to store the images and get a url
+    //or to use laravel media library 
     public function getThumbnailUrl()
     {
         //if its exteral link its a url
@@ -100,5 +101,7 @@ class Post extends Model
 
         //might have to use the same thing for events too. 
     }
-   
+
+
+
 }

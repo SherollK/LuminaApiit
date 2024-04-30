@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
          \App\Models\Post::factory(100)->create();
          \App\Models\Category::factory(8)->create();
+         \App\Models\Events::factory(20)->create();
 
         \App\Models\User::factory()->create([
             'name' => 'Test User',
@@ -24,11 +25,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
+            
         ]);
         \App\Models\User::factory()->create([
             'name' => 'Test Editor',
             'email' => 'editor@editor.com',
             'password' => bcrypt('password'),
+            
         ]);
     }
 }

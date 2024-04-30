@@ -12,9 +12,16 @@ use Livewire\WithPagination;
 
 class PostList extends Component
 {
+    //enables pagination 
     use WithPagination;
+    
 
 
+    // Should be included in the URL when passed as parameters
+    //public properties of the class: 
+        //Sorting direction 
+        //Search function 
+        //category 
     #[Url()]
     public $sort = 'desc';
     
@@ -24,30 +31,37 @@ class PostList extends Component
     #[Url()]
     public $category = '';
 
+
+
+    //setting the sort direction 
     public function setSort($sort)
     {
         $this->sort = ($sort === 'desc') ? 'desc' : 'asc';
     }
 
 
-    #[On('search')]
+
+    #[On('search')]//triggered when search event occurs. 
     public function updateSearch($search)
     {
         $this->search = $search;
     }
 
+    //clean file
     public function clearFilters()
     {
         $this->search = '';
         $this->category = '';
-        $this->resetPage();
+        $this->resetPage(); //user returns to first page of results 
     }
 
     #[Computed()]
+    //run everysingle time one of these changed. 
+    //uses literally all of the other stuff
     public function posts()
     {
-        return Post::published()
-            ->with('author', 'categories')
+        return Post::published() //from the scope 
+            ->with('author', 'categories') //Eager loading 
             ->orderBy('published_at', $this->sort)
             ->when($this->activeCategory, function ($query) {
                 $query->withCategory($this->category);
@@ -56,15 +70,18 @@ class PostList extends Component
             ->paginate(10);
     }
 
-    #[Computed()]
+    #[Computed()] //whenerver the dependancy changes it is recomputed ----> can connect this to tags. 
+    //the function lets you pass the active category 
     public function activeCategory()
     {
         if(!$this->category === null || $this->category === ''){
             return null;
         }
+    
         return Category::where('slug', $this->category)->first();
     }
 
+    //lets you summon it to a different page. 
     public function render()
     {
         return view('livewire.post-list');
