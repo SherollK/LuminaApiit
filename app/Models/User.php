@@ -29,6 +29,7 @@ class User extends Authenticatable implements FilamentUser
     const ROLE_USER_MNG = "USER_MNG";
     const ROLE_ALUMINI = 'ALUMINI';
     const ROLE_USER = "USER";
+    const ROLE_DEFAULT = "USER";
     const ROLE_OTHER = 'Other';
 
     //commenting this because we need an admin user. 
@@ -86,7 +87,13 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role'
+        'role',
+
+        //mass asigning is_aproved to students who have 
+        //who can post
+            //students 
+
+        'is_approved'
     ];
 
     /**
@@ -157,6 +164,20 @@ class User extends Authenticatable implements FilamentUser
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_user');
+    }
+
+    public function getDescription(): string
+    {
+        // Define descriptions for each role
+        $descriptions = [
+            self::ROLE_ALUMINI => 'Verify if these users are credible alumini',
+            self::ROLE_USER => 'Verify if these users are credible students',
+            self::ROLE_OTHER => "Verify what users they are and give them necessary roles. "
+            // Add descriptions for other roles here
+        ];
+
+        // Return the description based on the role of the user
+        return $descriptions[$this->role] ?? '';
     }
   
 }

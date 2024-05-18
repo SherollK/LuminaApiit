@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Grouping\Group;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -56,12 +57,26 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('role')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\IconColumn::make('is_approved')->boolean()
+                    ->sortable()
+                    ->searchable(),
             ])
+            
+            ->groups([
+              
+                Group::make('role')
+                ->label('Role of the user')
+                ->getDescriptionFromRecordUsing(function (User $record): string {
+                    return $record->getDescription();
+                })
+            ])
+
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                self::approveActions(), // Call the method using `self::`
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -71,6 +86,14 @@ class UserResource extends Resource
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
             ]);
+    }
+
+    // Define the method outside of the table method
+    public static function approveActions()
+    {
+        return Tables\Actions\Action::make('Approve')
+            ->icon('heroicon-o-check-circle')
+            ->action(fn (User $record) => $record->update(['is_approved' => true]));
     }
     
     public static function getRelations(): array
@@ -87,5 +110,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
+    }  
 }

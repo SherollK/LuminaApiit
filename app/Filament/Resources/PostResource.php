@@ -68,6 +68,7 @@ class PostResource extends Resource
                     ->multiple()
                     ->relationship('categories', 'title')
                     ->searchable(),
+                
                 ]
             ),
         ]);

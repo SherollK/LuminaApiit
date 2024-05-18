@@ -34,9 +34,6 @@ class UserprofilePage extends Component
         ]);
     }
 
-    public function save()
-    {
-        $userProfile
-    }
+   
 
 }

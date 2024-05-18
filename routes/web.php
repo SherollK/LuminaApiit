@@ -23,6 +23,8 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('/blog/create', [PostController::class, 'create'])->name('posts.create');
+
 Route::get('/events', [EventsController::class, 'index'])->name('events.index');
 
 
@@ -31,7 +33,11 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.sh
 Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('events.show');
 
 
-Route::get('/user-profile', [UserProfileController::class, 'show']);
+//Full page livewire component to create a post 
+
+
+//make different ones based on the user if 
+Route::get('/user-profile', [UserProfileController::class, 'show'])->name('user.profile');;
 
 Route::middleware([
     'auth:sanctum',

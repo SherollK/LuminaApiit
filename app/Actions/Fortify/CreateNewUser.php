@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -63,7 +64,7 @@ class CreateNewUser implements CreatesNewUsers
         $userProfile->jobDescription = $input['job_description'];
         $userProfile->bio = $input['bio'];
 
-        //there;s a typo in the database fix it later. till then keep it like this
+        //there;s a typo in the database fix it later. till then keep it like
         $userProfile->verifedStatus = 'NONE';
         $userProfile->save();
 
