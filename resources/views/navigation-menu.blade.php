@@ -24,6 +24,8 @@
         @else
             @include('layouts.partials.header-right-guest')
         @endauth
+        <livewire:notifications-component/>
+
     </div>
 </nav>
 

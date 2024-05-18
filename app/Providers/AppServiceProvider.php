@@ -18,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
+
     {
+        // DatabaseNotifications::trigger('filament.notifications.database-notifications-trigger');
         //
     }
 }

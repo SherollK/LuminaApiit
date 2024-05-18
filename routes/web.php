@@ -4,6 +4,9 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\UserProfileController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,9 @@ Route::get('/events', [EventsController::class, 'index'])->name('events.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('events.show');
+
+
+Route::get('/user-profile', [UserProfileController::class, 'show']);
 
 Route::middleware([
     'auth:sanctum',

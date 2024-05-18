@@ -12,6 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -22,15 +24,27 @@ class User extends Authenticatable implements FilamentUser
     use TwoFactorAuthenticatable;
 
     const ROLE_ADMIN = 'ADMIN';
-    const ROLE_EDITOR = 'EDITOR';
-    const ROLE_USER = 'USER';
+    const ROLE_CONTENT_MNG = 'CONTENT_MNG';
+    const ROLE_CATEGORY_MNG = "CATEGORY_MNG";
+    const ROLE_USER_MNG = "USER_MNG";
+    const ROLE_ALUMINI = 'ALUMINI';
+    const ROLE_USER = "USER";
+    const ROLE_OTHER = 'Other';
+
     //commenting this because we need an admin user. 
-    // const ROLE_DEFAULT = self::ROLE_USER; 
 
     const ROLES = [
         self::ROLE_ADMIN => 'Admin',
-        self::ROLE_EDITOR => 'Editor',
-        self::ROLE_USER => 'User',
+        self::ROLE_CONTENT_MNG => 'Content Management Admin',
+        self::ROLE_CATEGORY_MNG => 'Category Mangement Admin',
+        self::ROLE_USER_MNG  => 'User Management Admin',
+        self::ROLE_ALUMINI => 'Past Student',
+        self::ROLE_USER => 'Current Student',
+        self::ROLE_OTHER => 'Other',
+       
+        
+
+
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -42,9 +56,26 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === self::ROLE_ADMIN;
     }
 
-    public function isEditor(){
-        return $this->role === self::ROLE_EDITOR;
+    public function isContentMng(){
+        return $this->role === self::ROLE_CONTENT_MNG;
     }
+
+    public function isCategoryMng(){
+        return $this->role === self::ROLE_CATEGORY_MNG;
+    }
+    
+    public function isUserMng(){
+        return $this->role === self::ROLE_USER_MNG;
+    }
+    
+    public function isAlumini(){
+        return $this->role === self::ROLE_ALUMINI;
+    }
+
+    public function isStudent(){
+        return $this->role === self::ROLE_USER;
+    }
+    
 
     /**
      * The attributes that are mass assignable.
@@ -102,4 +133,31 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public static function getAvailableRoles()
+    {
+        $availableRoles = self::ROLES;
+        unset($availableRoles[self::ROLE_CONTENT_MNG]);
+        unset($availableRoles[self::ROLE_CATEGORY_MNG]);
+        unset($availableRoles[self::ROLE_USER_MNG]);
+        unset($availableRoles[self::ROLE_ADMIN]);
+
+        return $availableRoles;
+
+
+    }
+    
+
+    //for the pivot table for matching users with categories. 
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_user');
+    }
+  
 }
+

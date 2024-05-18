@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -20,4 +21,18 @@ class Category extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public static function getCategoryList()
+    {
+        return self::select('id', 'title')->get();
+
+    }
+
+    //for the pivot table 
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'category_user');
+    }
+
+
 }

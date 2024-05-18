@@ -13,7 +13,12 @@ class UserStatsWidget extends BaseWidget
         return [
             Stat::make('Total Users', User::count()),
             Stat::make('Total Admins', User::where('role', User::ROLE_ADMIN)->count()),
-            Stat::make('Total Editors', User::where('role', User::ROLE_EDITOR)->count()),
+            Stat::make('Total Content Manager Admins', User::where('role', User::ROLE_CONTENT_MNG)->count()),
+            Stat::make('Total Category Manager Admins', User::where('role', User::ROLE_CATEGORY_MNG)->count()),
+            Stat::make('Total User Manager Admins', User::where('role', User::ROLE_USER_MNG)->count()),
+            Stat::make('Total Alumini Members', User::where('role', User::ROLE_ALUMINI)->count()),
+            Stat::make('Total Students', User::where('role', User::ROLE_USER)->count()),
         ];
+        
     }
 }
