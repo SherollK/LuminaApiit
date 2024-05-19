@@ -28,6 +28,12 @@ class Category extends Model
 
     }
 
+    //for the pivot table among events and categories.
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'category_event');
+    }
+
     //for the pivot table 
     public function users(): BelongsToMany
     {

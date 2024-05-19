@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\AvailableEventsScope;
 use Carbon\Carbon;
 use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -54,9 +56,8 @@ class Events extends Model
     //Each event can have many categories 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_event');
     }
-
      //Finds out events that are available and not et has been held. 
      //do we need this now that we have a global scope?
     // public function availability($query)

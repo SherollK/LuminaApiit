@@ -12,6 +12,10 @@ class EventsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+                \App\Models\User::factory()->create([
+            'name' => 'Test Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password'),
+            'role' => "ADMIN"
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserProfileRequest;
 use App\Http\Requests\UpdateUserProfileRequest;
 use App\Models\UserProfile;
+use App\Models\User;
 
 class UserProfileController extends Controller
 {
@@ -35,17 +36,12 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserProfile $userProfile)
+    public function show($id)
     {
-        return view(
-            'userProfile.show',
-            [
-                'userProfile' => $userProfile
-            ]
-        );
-        //
-    }
+        $user = User::findOrFail($id);
 
+        return view('userProfile.show', ['userId' => $id]);
+    }
     /**
      * Show the form for editing the specified resource.
      */

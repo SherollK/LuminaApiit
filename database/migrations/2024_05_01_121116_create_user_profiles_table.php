@@ -19,18 +19,13 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table -> string('bio');
             $table -> string('location');
-            //status is basically role. 
             $table -> string('jobDescription')->nullable();
             //job descriptions can include job des. for alumini , and for students it can be the level , 
-            //and for admin it can be their job role ig
             $table -> integer('graduationYear')->nullable();
-            //for everyone you can have it 
-            //except for admins 
 
 
             //there;s a typo here leave it here 
             $table -> string('verifedStatus');
-            //we have a function. 
 
 
         });
@@ -44,3 +39,4 @@ return new class extends Migration
         Schema::dropIfExists('user_profiles');
     }
 };
+

@@ -4,8 +4,7 @@
             {{-- Livewire components --}}
            
         
-                <livewire:userprofilePage :userId="auth()->id()" />
-         
+                <livewire:userprofilePage :user-id="$userId" />
        
                
     

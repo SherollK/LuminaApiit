@@ -5,12 +5,14 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventsResource\Pages;
 use App\Filament\Resources\EventsResource\RelationManagers;
 use App\Models\Events;
+use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Hidden;
@@ -59,6 +61,11 @@ class EventsResource extends Resource
                 TimePicker::make('time')->required(),
                 TextInput::make('location')->required(),
                 TextInput::make('slug')->required()->unique(ignoreRecord: true)->minLength(1)->maxLength(150),
+                Select::make('categories')
+                ->multiple()
+                ->relationship('categories', 'title')
+                ->options(Category::all()->pluck('title', 'id'))
+                ->required(),
                 FileUpload::make('image')->image()
                                         ->imageEditor()
                                         ->imageEditorAspectRatios([

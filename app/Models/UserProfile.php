@@ -21,11 +21,11 @@ class UserProfile extends Model
     const law_school = "APIIT Law School";
     const computing_school = "APIIT School of Computing";
 
-    const level3 = "  Level 3 (Foundation)";
-    const level4 = "  Level 4 (First Year)";
-    const level5 = "  Level 5 (Second Year)";
-    const level6 = "  Level 6 (Third Year)";
-  
+    const level3 = "  level 3 (Foundation)";
+    const level4 = "  level 4 (First Year)";
+    const level5 = "  level 5 (Second Year)";
+    const level6 = "  level 6 (Third Year)";
+    const noLevel = "not a student" ;
 
     protected $fillable = [
         'user_id',
@@ -98,10 +98,11 @@ public static function getLocation()
 public static function getlevels()
 {
     $levels = [
-        self::level3=> "  Level 3 (Foundation)",
-        self::level4=> "  Level 4 (First Year)",
-        self::level5=> "  Level 5 (Second Year)",
-        self::level6=> "  Level 6 (Third Year)",
+        self::level3=> "  level 3 (Foundation)",
+        self::level4=> "  level 4 (First Year)",
+        self::level5=> "  level 5 (Second Year)",
+        self::level6=> "  level 6 (Third Year)",
+        self::noLevel=> "not a current student",
        ];
      
        return $levels;

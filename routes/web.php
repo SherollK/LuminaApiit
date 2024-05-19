@@ -37,7 +37,7 @@ Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('ev
 
 
 //make different ones based on the user if 
-Route::get('/user-profile', [UserProfileController::class, 'show'])->name('user.profile');;
+Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('user.profile');
 
 Route::middleware([
     'auth:sanctum',
