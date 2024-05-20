@@ -17,10 +17,16 @@ class EventsController extends Controller
     public function index()
     {
         $user = Auth::user();
+            
         $categoryIds = $user->categories->pluck('id');
         $events = Events::whereHas('categories', function ($query) use ($categoryIds) {
             $query->whereIn('categories.id', $categoryIds);
         })->get();
+
+        if(!$user->categories)
+        {
+            $events = Events::all->get();
+        }
         return view('events.index',
             [
                 'categories' => Category::all(),

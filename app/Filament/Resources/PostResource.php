@@ -80,14 +80,16 @@ class PostResource extends Resource
             ->columns([
                 ImageColumn::make('image'),
                 TextColumn::make('title')->sortable()->searchable(),
-                TextColumn::make('sub_title')->sortable()->searchable(),
-                TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
-                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
                 CheckboxColumn::make('featured')->sortable(),
+                Tables\Columns\IconColumn::make('hide')->label('Hidden?')->boolean()
+                ->sortable()
+                ->searchable(),
             ])
             ->filters([Tables\Filters\TrashedFilter::make()])
-            ->actions([Tables\Actions\EditAction::make()])
+            ->actions([Tables\Actions\EditAction::make(),
+            self::ShowAction()])
+            
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make(), Tables\Actions\ForceDeleteBulkAction::make(), Tables\Actions\RestoreBulkAction::make()])])
             ->emptyStateActions([Tables\Actions\CreateAction::make()]);
     }
@@ -112,4 +114,11 @@ class PostResource extends Resource
     {
         return parent::getEloquentQuery()->withoutGlobalScopes([SoftDeletingScope::class]);
     }
+    public static function ShowAction()
+    {
+        return Tables\Actions\Action::make('Show')
+            ->icon('heroicon-o-check-circle')
+            ->action(fn (Post $record) => $record->update(['hide' => false]));
+    }
+    
 }

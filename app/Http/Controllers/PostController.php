@@ -12,10 +12,13 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
+        
         $categoryIds = $user->categories->pluck('id');
         $posts = Post::whereHas('categories', function ($query) use ($categoryIds) {
             $query->whereIn('categories.id', $categoryIds);
-        })->get();
+        })
+        ->where('visibility', true) 
+        ->get();
         return view('posts.index',
             [
                 'categories' => Category::all(),

@@ -23,6 +23,7 @@ class Post extends Model
         'body',
         'published_at',
         'featured',
+        'hide',
     ];
 
     protected $casts = [
@@ -45,11 +46,35 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    //if the author's role is a CNT_MNG_ADMIN or ALUMINI. 
+        //hide feature becomes false
+    //ELse hide feature is true. 
+    //this is done in the createPostController.
 
+    //then only posts with hide attribute false are shown in the post list. 
+    //in the postlist livewire file. 
+
+    
     public function likes()
     {
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
     }
+
+    public function visibility()
+    {
+        // Check if the author has the role of ROLE_ALUMINI or CONTENT_MNG
+        if ($this->author->role == "ROLE_ALUMINI" || $this->author->role == "CONTENT_MNG") {
+            // If the user is an alumnus or content manager, get the value of hide
+            $hide = $this->author->hide; 
+    
+            // Return false if hide is true, indicating that the post should be hidden
+            return !$hide;
+        }
+    
+        // If the user does not have the specified roles, the post should be visible
+        return true;
+    }
+    
     
     //returns posts that were published before today. 
 

@@ -16,6 +16,5 @@ class EventsTableSeeder extends Seeder
             'name' => 'Test Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
-            'role' => "ADMIN"
-    }
+            'role' => "ADMIN"]);  }
 }
