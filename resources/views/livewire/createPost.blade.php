@@ -1,13 +1,13 @@
 <!-- create-post.blade.php -->
 @php
 use App\Models\Category;
-    
+
 @endphp
 
 <div class="w-full">
     <form wire:submit.prevent="save" class="max-w-md mx-auto">
     <p class="py-8 font-bold text-xl">Create a Post </p>
-       
+
         <div class="mb-4">
             <label for="title" class="block font-bold text-gray-700 ">Title</label>
             <input wire:model="title" id="title" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
@@ -37,11 +37,11 @@ use App\Models\Category;
                 @endforeach
             </div>
         </div>
-        
-        
 
-        
-{{-- 
+
+
+
+{{--
         <div class="mb-4">
             <label for="featured" class="inline-flex items-center">
                 <input wire:model="featured" id="featured" type="checkbox" class="form-checkbox" />
@@ -54,14 +54,14 @@ use App\Models\Category;
             <input type="file" wire:model="image" id="image" class="mt-1 block w-full text-gray-700">
             @if ($image)
                 <div class="mt-2">
-                    <img src="{{ $image->temporaryUrl() }}" alt="Image Preview" class="max-h-64 object-cover rounded">
+                    <img src="{{ $image->temporaryUrl() }}"  alt="Image Preview" class="max-h-64 object-cover rounded">
                 </div>
             @endif
             @error('image') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
 
         {{-- input field to add categories --}}
-       
+
 
         <div class="flex justify-end">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -88,7 +88,7 @@ use App\Models\Category;
 
 
 
-{{-- 
+{{--
 $table->id();
 $table->foreignIdFor(User::class);
 

@@ -68,7 +68,7 @@ class PostResource extends Resource
                     ->multiple()
                     ->relationship('categories', 'title')
                     ->searchable(),
-                
+
                 ]
             ),
         ]);
@@ -89,7 +89,7 @@ class PostResource extends Resource
             ->filters([Tables\Filters\TrashedFilter::make()])
             ->actions([Tables\Actions\EditAction::make(),
             self::ShowAction()])
-            
+
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make(), Tables\Actions\ForceDeleteBulkAction::make(), Tables\Actions\RestoreBulkAction::make()])])
             ->emptyStateActions([Tables\Actions\CreateAction::make()]);
     }
@@ -118,7 +118,12 @@ class PostResource extends Resource
     {
         return Tables\Actions\Action::make('Show')
             ->icon('heroicon-o-check-circle')
-            ->action(fn (Post $record) => $record->update(['hide' => false]));
+            ->action(fn (Post $record) => $record->update([self::visibility() => false]));
     }
-    
+
+    private static function visibility()
+    {
+
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use App\Http\Requests\StoreEventsRequest;
 // use App\Http\Requests\UpdateEventsRequest;
+use App\Http\Requests\StoreEventsRequest;
 use App\Models\Events;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;

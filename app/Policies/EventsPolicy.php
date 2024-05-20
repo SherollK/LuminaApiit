@@ -6,10 +6,6 @@ use App\Models\Events;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-
-//WHo can create events?
-    //content creator admins 
-    //implementation of different admins first 
 class EventsPolicy
 {
     /**
@@ -17,7 +13,7 @@ class EventsPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -25,7 +21,7 @@ class EventsPolicy
      */
     public function view(User $user, Events $events): bool
     {
-        //
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -33,7 +29,7 @@ class EventsPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -41,7 +37,7 @@ class EventsPolicy
      */
     public function update(User $user, Events $events): bool
     {
-        //
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -49,7 +45,7 @@ class EventsPolicy
      */
     public function delete(User $user, Events $events): bool
     {
-        //
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -57,7 +53,7 @@ class EventsPolicy
      */
     public function restore(User $user, Events $events): bool
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -65,6 +61,6 @@ class EventsPolicy
      */
     public function forceDelete(User $user, Events $events): bool
     {
-        //
+        return $user->isAdmin();
     }
 }
