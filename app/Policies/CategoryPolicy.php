@@ -46,7 +46,7 @@ class CategoryPolicy
     public function delete(User $user, Category $category): bool
     {
         return $user->isAdmin() || $user->isCategoryMng();
-        
+
     }
 
     /**
@@ -55,7 +55,7 @@ class CategoryPolicy
     public function deleteAny(User $user): bool
     {
         return $user->isAdmin() || $user->isCategoryMng();
-        
+
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryPolicy
     public function restore(User $user, Category $category): bool
     {
         return $user->isAdmin() || $user->isCategoryMng();
-        
+
     }
 
     /**
@@ -73,6 +73,6 @@ class CategoryPolicy
     public function forceDelete(User $user, Category $category): bool
     {
         return $user->isAdmin() || $user->isCategoryMng();
-        
+
     }
 }

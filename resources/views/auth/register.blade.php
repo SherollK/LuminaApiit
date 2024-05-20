@@ -48,7 +48,7 @@ use App\Models\Category;
             </div>
             {{-- After this a[[;y these in the form submission controller]] --}}
 
-         
+
 
             {{-- Graduated YEar --}}
             <div class="mt-4">
@@ -83,7 +83,7 @@ use App\Models\Category;
                 <input id="job_description" type="text" name="job_description" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm">
             </div>
 
-            
+
             {{-- Bio --}}
          <div class="mt-4">
               <x-label for="bio" value="{{ __('Tell us a bit about yourself (Your Bio)') }}" />
@@ -103,19 +103,19 @@ use App\Models\Category;
                 @endforeach
             </div>
         </div>
-        
-        
-
-            
 
 
 
 
-            
 
 
 
-           
+
+
+
+
+
+
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">

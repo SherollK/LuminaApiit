@@ -47,3 +47,20 @@ easymde/dist/easymde.min.css:
    * @license MIT
    *)
 */
+
+/*.filament-forms-component-select .select2-selection__rendered {
+  color: black !important; /* new 
+}*/
+
+select#data\.degree {
+  color: #888;
+}
+select#data\.year {
+  color: #888;
+}
+select#data\.category {
+  color: #888;
+}
+select#data\.role {
+  color: #888;
+}

@@ -32,7 +32,7 @@ class User extends Authenticatable implements FilamentUser
     const ROLE_DEFAULT = "USER";
     const ROLE_OTHER = 'Other';
 
-    //commenting this because we need an admin user. 
+    //commenting this because we need an admin user.
 
     const ROLES = [
         self::ROLE_ADMIN => 'Admin',
@@ -42,8 +42,8 @@ class User extends Authenticatable implements FilamentUser
         self::ROLE_ALUMINI => 'Past Student',
         self::ROLE_USER => 'Current Student',
         self::ROLE_OTHER => 'Other',
-       
-        
+
+
 
 
     ];
@@ -64,11 +64,11 @@ class User extends Authenticatable implements FilamentUser
     public function isCategoryMng(){
         return $this->role === self::ROLE_CATEGORY_MNG;
     }
-    
+
     public function isUserMng(){
         return $this->role === self::ROLE_USER_MNG;
     }
-    
+
     public function isAlumini(){
         return $this->role === self::ROLE_ALUMINI;
     }
@@ -76,7 +76,7 @@ class User extends Authenticatable implements FilamentUser
     public function isStudent(){
         return $this->role === self::ROLE_USER;
     }
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -89,9 +89,9 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'role',
 
-        //mass asigning is_aproved to students who have 
+        //mass asigning is_aproved to students who have
         //who can post
-            //students 
+            //students
 
         'is_approved'
     ];
@@ -158,9 +158,9 @@ class User extends Authenticatable implements FilamentUser
 
 
     }
-    
 
-    //for the pivot table for matching users with categories. 
+
+    //for the pivot table for matching users with categories.
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_user');
@@ -179,6 +179,6 @@ class User extends Authenticatable implements FilamentUser
         // Return the description based on the role of the user
         return $descriptions[$this->role] ?? '';
     }
-  
+
 }
 

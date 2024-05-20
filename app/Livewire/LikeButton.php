@@ -22,7 +22,11 @@ class LikeButton extends Component
             return $this->redirect(route('login'), true);
         }
 
-        $user = auth()->user();
+        if (!auth()->user()->hasVerifiedEmail()) {
+            return $this->redirectRoute('verification.notice'); // Use route name for verification
+        }
+
+        $user = auth()->user()->hasVerifiedEmail();
 
         if ($user->hasLiked($this->post)) {
             $user->likes()->detach($this->post);

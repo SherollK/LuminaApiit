@@ -61,9 +61,9 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
             ])
-            
+
             ->groups([
-              
+
                 Group::make('role')
                 ->label('Role of the user')
                 ->getDescriptionFromRecordUsing(function (User $record): string {
@@ -95,14 +95,14 @@ class UserResource extends Resource
             ->icon('heroicon-o-check-circle')
             ->action(fn (User $record) => $record->update(['is_approved' => true]));
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -110,5 +110,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }  
+    }
 }

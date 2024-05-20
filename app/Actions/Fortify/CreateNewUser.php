@@ -28,7 +28,7 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        $selectedRole = $input['role']; 
+        $selectedRole = $input['role'];
         if ($selectedRole === 'ROLE_ALUMINI') {
             $role = User::ROLE_ALUMNI;
         } elseif ($selectedRole === 'current student') {
@@ -38,26 +38,26 @@ class CreateNewUser implements CreatesNewUsers
         }
 
 
-        
+
 
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'role' => $selectedRole
-            
+
         ]) ;
 
-        $graduation_year = $input['graduatingYear']; 
-        $location = $input['location']; 
-        $level = $input['level']; 
+        $graduation_year = $input['graduatingYear'];
+        $location = $input['location'];
+        $level = $input['level'];
 
 
 
-      
+
 
         $userProfile = new UserProfile();
-        $userProfile->user_id = $user->id; 
+        $userProfile->user_id = $user->id;
         $userProfile->location = $location ;
         $userProfile->level = $level;
         $userProfile->graduationYear = $graduation_year;
@@ -87,9 +87,9 @@ class CreateNewUser implements CreatesNewUsers
 
 
 
-        
 
-        
-        
+
+
+
     }
 }
