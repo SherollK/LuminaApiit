@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
+use Illuminate\Notifications\Notifiable;
 
 class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Notifiable;
 
     protected $fillable = [
         'user_id',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\NotificationController;
 
 
 
@@ -38,6 +39,11 @@ Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('ev
 
 //make different ones based on the user if 
 Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('user.profile');
+// routes/web.php
+
+
+Route::get('/notifications/{id}', [NotificationController::class, 'show'])->name('notifications.show');
+Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
 
 Route::middleware([
     'auth:sanctum',

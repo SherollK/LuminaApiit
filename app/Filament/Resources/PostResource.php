@@ -24,6 +24,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Filament\Notifications\Notification;
 
 class PostResource extends Resource
 {
@@ -86,7 +87,9 @@ class PostResource extends Resource
                 ->sortable()
                 ->searchable(),
             ])
-            ->filters([Tables\Filters\TrashedFilter::make()])
+            ->filters([Tables\Filters\TrashedFilter::make()], 
+
+            )
             ->actions([Tables\Actions\EditAction::make(),
             self::ShowAction()])
             
@@ -119,6 +122,49 @@ class PostResource extends Resource
         return Tables\Actions\Action::make('Show')
             ->icon('heroicon-o-check-circle')
             ->action(fn (Post $record) => $record->update(['hide' => false]));
-    }
+           
+            $recipient = $record()->user;
+            Notification::make()
+                  ->title('Your post was approved')
+                   ->success()
+                   ->body('Your post is now visible to all of our community.')
+                   ->sendToDatabase($recipient)
+                   ->actions([
+                       Action::make('view')
+                           ->button()
+                           ->markAsRead(),
+                   ])
+                   ->send();
+            $recipient = $record()->user;
+            Notification::make()
+                  ->title('Your post was approved')
+                   ->success()
+                   ->body('Your post is now visible to all of our community.')
+                   ->sendToDatabase($recipient);
+                //    ->actions([
+                //        Action::make('view')
+                //            ->button()
+                //            ->markAsRead(),
+                //    ])
+                //    ->send();
+               
+
+
+   
+   
+        }
     
+    public function apply($query, $value)
+    {
+    // Get the IDs of the current user's categories
+    $userCategoryIds = auth()->user()->categories()->pluck('id');
+
+    // Filter posts where at least one category ID matches between user's categories and post's categories
+    $query->whereHas('categories', function ($query) use ($userCategoryIds) {
+        $query->whereIn('id', $userCategoryIds);
+    });
+    }
+
+
+
 }
