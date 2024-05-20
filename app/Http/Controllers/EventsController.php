@@ -18,15 +18,23 @@ class EventsController extends Controller
     {
         $user = Auth::user();
 
-        $categoryIds = $user->categories->pluck('id');
-        $events = Events::whereHas('categories', function ($query) use ($categoryIds) {
-            $query->whereIn('categories.id', $categoryIds);
-        })->get();
-
-        if(!$user->categories)
+        if(!$user)
         {
             $events = Events::all();
         }
+
+        else{
+            $categoryIds = $user->categories->pluck('id');
+
+
+            $events = Events::whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            })->get();
+
+        }
+
+
+
         return view('events.index',
             [
                 'categories' => Category::all(),

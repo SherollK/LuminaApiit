@@ -12,20 +12,28 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        $categoryIds = $user->categories->pluck('id');
-        $posts = Post::whereHas('categories', function ($query) use ($categoryIds) {
-            $query->whereIn('categories.id', $categoryIds);
-        })
-        ->where('visibility', true) 
-        ->get();
+
+
+        if(!$user)
+        {
+            $posts = Post::all();
+        }
+
+        else{
+            $categoryIds = $user->categories->pluck('id');
+            $posts = Post::whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            })
+                ->where('visibility', true)
+                ->get();
+        }
         return view('posts.index',
             [
                 'categories' => Category::all(),
                 'posts' => $posts,
             ]
         );
-        
+
     }
 
     public function show(Post $post)
@@ -49,7 +57,7 @@ class PostController extends Controller
         // 'published_at',
         // 'featured',
 
-        // $post = new Post(); 
+        // $post = new Post();
         // $post->title = $request->title;
         // $post->sub_title = $request->sub_title;
         // $post->slug = Str::slug($post->title);
