@@ -55,7 +55,6 @@ class UserProfileController extends Controller
      */
     public function update(UpdateUserProfileRequest $request, UserProfile $userProfile)
     {
-        //
     }
 
     /**

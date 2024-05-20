@@ -1,34 +1,27 @@
 <?php
-
 namespace App\Livewire;
+
 use Livewire\Component;
-use App\Models\UserProfile;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
-class UserprofilePage extends Component
+class UpdateProfileForm extends Component
 {
+    public $state = [];
 
-    // public $bio = ""; 
-    public $userProfile;
-    public $userId;
-
- 
-
-    public function mount($userId)
+    public function mount()
     {
-
-        $this->userId = $userId;
-        $this->user = User::findOrFail($userId);
-        $this->userProfile = UserProfile::where('user_id', $userId)->first();
-        //we can pass all the properties that we need on here so we can show it on the blog?
-     
-        
+        $this->state = [
+            'email' => Auth::user()->email,
+            'jobDescription' => Auth::user()->profile->jobDescription,
+            'level' => Auth::user()->profile->level,
+            'location' => Auth::user()->profile->location,
+            'bio' => Auth::user()->profile->bio,
+        ];
     }
 
     public function updateProfile()
     {
-
         $this->validate([
             'state.jobDescription' => 'required|string|max:255',
             'state.level' => 'nullable|string|max:255',
@@ -46,15 +39,9 @@ class UserprofilePage extends Component
 
         session()->flash('message', 'Profile updated successfully.');
     }
-   
+
     public function render()
     {
-        return view('livewire.userprofilePage', [
-            'user' => $this->user ,
-            'userProfile' => $this->userProfile
-        ]);
+        return view('livewire.updateProfileForm');
     }
-
-   
-
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 // use App\Http\Requests\StoreEventsRequest;
 // use App\Http\Requests\UpdateEventsRequest;
 use App\Models\Events;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
 
 class EventsController extends Controller
 {
@@ -13,12 +16,17 @@ class EventsController extends Controller
      */
     public function index()
     {
-        return view('events.index'
-            
-                // 'events' => Events::all(),
-            
+        $user = Auth::user();
+        $categoryIds = $user->categories->pluck('id');
+        $events = Events::whereHas('categories', function ($query) use ($categoryIds) {
+            $query->whereIn('categories.id', $categoryIds);
+        })->get();
+        return view('events.index',
+            [
+                'categories' => Category::all(),
+                'events' => $events,
+            ]
         );
-        //
     }
 
     /**

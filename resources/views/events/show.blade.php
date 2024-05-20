@@ -10,9 +10,11 @@
                 <div class="flex py-5 text-base items-center">
                     <x-posts.author :author="$events->author" size="lg" />
                    
-          
+                        
                
                 </div>
+
+
                 {{-- <div class="flex items-center"> --}}
                     {{-- <span class="text-gray-500 mr-2">{{ $post->published_at->diffForHumans() }}</span> --}}
                     {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.3"
@@ -39,6 +41,8 @@
             <div class="article-content py-3 text-gray-800 text-lg prose text-justify">
                 {!! $events->description !!}
             </div>
+            
+
 
             <div class="flex gap-5 items-start my-10">
                     <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-md font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">{{ $events->date }}</span>
@@ -46,6 +50,32 @@
                     <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-md font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">{{ $events->time }}</span>
      
             </div>
+
+            <div class="flex justify-start">
+
+           
+                @php
+                $badgeStyles = [
+                    'bg-gray-50 text-gray-600 ring-gray-500/10',
+                    'bg-blue-50 text-blue-700 ring-blue-700/10',
+                    'bg-indigo-50 text-indigo-700 ring-indigo-700/10',
+                    'bg-purple-50 text-purple-700 ring-purple-700/10'
+                ];
+                @endphp
+    
+    
+    
+                @foreach ($events->categories as $index => $category)
+                @php
+                    $style = $badgeStyles[$index % count($badgeStyles)];
+                @endphp
+                <span class="inline-flex items-center mx-3 rounded-md px-2 py-1 text-sm font-medium ring-1 ring-inset {{ $style }}">
+                    {{ $category->title }}
+                </span>
+                @endforeach
+              </div>
+
+
 {{--     
             <div class="flex items-center space-x-4 mt-10">
                 @foreach ($events->categories as $category)
