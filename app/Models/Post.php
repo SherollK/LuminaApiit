@@ -69,25 +69,22 @@ class Post extends Model
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeVisible(Builder $query)
-    {
-        return $query->where(function ($query) {
-            $query->whereHas('author', function ($query) {
-                $query->where(function ($query) {
-                    $query->where('role', 'ROLE_ALUMINI')
-                          ->orWhere('role', 'CONTENT_MNG');
-                })
-                ->where('hide', false);
-            })
-            ->orWhereDoesntHave('author', function ($query) {
-                $query->where(function ($query) {
-                    $query->where('role', '<>', 'ROLE_ALUMINI')
-                          ->where('role', '<>', 'CONTENT_MNG');
-                });
-            });
-        });
-    }
+public function scopeVisible(Builder $query)
+{
+    return $query->where(function ($query) {
+        // Check for posts without authors (assuming posts without authors are always visible)
+        $query->orWhereDoesntHave('author');
 
+        // Check for posts with authors who have allowed roles and 'hide' is false
+        $query->whereHas('author', function ($query) {
+            $query->where(function ($query) {
+                $query->where('role', 'ROLE_ALUMINI')
+                    ->orWhere('role', 'CONTENT_MNG');
+            })
+            ->where('hide', false);
+        });
+    });
+}
 
     //returns posts that were published before today.
 
