@@ -15,7 +15,7 @@
                 <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unreadNotifications->count() }}</span>
             @endif
         </button>
-        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg overflow-hidden z-20">
+        <div id="notificationDropdown" class=" absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg overflow-hidden z-20">
             <div class="py-2">
                 <span class="block px-4 py-2 text-sm text-gray-700">You have {{ $unreadNotifications->count() }} notifications</span>
             </div>
@@ -98,9 +98,9 @@
    
 </div>
 
-<script>
+{{-- <script>
     document.getElementById('notificationButton').addEventListener('click', function() {
         const dropdown = document.getElementById('notificationDropdown');
         dropdown.classList.toggle('hidden');
     });
-</script>
+</script> --}}

@@ -62,19 +62,21 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
     }
 
-    public function visibility(): bool
+    public function hide(): bool
     {
         // Check if the author has the role of ROLE_ALUMINI or CONTENT_MNG
         if ($this->author->role == "ROLE_ALUMINI" || $this->author->role == "CONTENT_MNG") {
             // If the user is an alumnus or content manager, get the value of hide
             $hide = $this->author->hide;
 
-            // Return false if hide is true, indicating that the post should be hidden
-            return !$hide;
+            // Return false if hide is false, indicating that the post should not be hidden
+            $hide = false; 
+            return $hide;
         }
 
-        // If the user does not have the specified roles, the post should be visible
-        return true;
+        // If the user does not have the specified roles, the post should be hidden 
+        $hide = true;
+        return $hide
     }
 
 
