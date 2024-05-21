@@ -7,17 +7,45 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
+    //if they are user or an admin , then they are viewadmins?
+    //view admin is if they can access the panel
     public function viewAdmin(User $user) : bool{
-        //return $user->isAdmin() || $user->isUserManager();
-        return $user->isAdmin() || $user->isEditor() || $user->isModerator() || $user->isUserManager() || $user->isTagManager() || $user->isAnalytic();
+        return $user->isAdmin() || $user->isUserMng() || $user->isContentMng() || $user->isCategoryMng();
     }
-    
+
+    // public function isAdmin(){
+    //     return $this->role === self::ROLE_ADMIN;
+    // }
+
+    // public function isContentMng(){
+    //     return $this->role === self::CONTENT_MNG;
+    // }
+
+    // public function isCategoryMng(){
+    //     return $this->role === self::ROLE_CATEGORY_MNG;
+    // }
+
+    // public function isUserMng(){
+    //     return $this->role === self::ROLE_USER_MNG;
+    // }
+
+    // public function isAlumini(){
+    //     return $this->role === self::ROLE_ALUMINI;
+    // }
+
+    // public function isStudent(){
+    //     return $this->role === self::ROLE_USER;
+    // }
+
     /**
      * Determine whether the user can view any models.
      */
+
+     //do we need to give the admin this much power
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin()|| $user->isUserManager();
+        //comment out to limit admin power
+        return $user->isAdmin();
     }
 
     /**
@@ -25,7 +53,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->isAdmin()|| $user->isUserManager();
+        return $user->isAdmin()||$user->isUserMng();
     }
 
     /**
@@ -33,15 +61,19 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isUserManager();
+        //no one can create users.
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, User $model): bool
+
     {
-        return $user->isAdmin() || $user->isUserManager();
+        //admins cant update anything , plus levels and everything is in
+        return $user->isAdmin();
+        //only the admin can change the user roles
     }
 
     /**
@@ -49,7 +81,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->isAdmin()|| $user->isUserManager();
+        return $user->isAdmin();
     }
 
     /**
@@ -57,7 +89,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return $user->isAdmin()|| $user->isUserManager();
+        return $user->isAdmin();
     }
 
     /**
@@ -65,6 +97,7 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->isAdmin()|| $user->isUserManager();
+        return $user->isAdmin()||$user->isUserMng();
+
     }
 }

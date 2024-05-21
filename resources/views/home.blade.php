@@ -44,6 +44,24 @@
         </div>
         <hr>
 
+        <!---<div x-data="{
+            show: false,
+            value : null
+        }">
+            <button x-on:click="show = !show">
+                Show
+            </button>
+
+            <select name="" id="" x-model="value">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+
+            <div x-show="value == 1">
+                More content
+            </div>
+        </div>-->
+
         <div class="mb-16 px-4 md:px-0">
             <h2 class="mt-16 mb-5 text-3xl text-gray-900 font-bold text-center">Latest Posts</h2>
             <div class="w-full mb-5">
@@ -54,8 +72,10 @@
                 </div>
             </div>
             <a class="mt-10 block text-center text-lg text-gray-900 font-semibold"
-                href="/blog">More
-                Posts ></a>
+                href="/blog">
+                More
+                Posts >
+            </a>
         </div>
 
     </div>

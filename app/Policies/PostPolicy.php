@@ -13,7 +13,7 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -21,7 +21,8 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin() || $user->isContentMng();
+
     }
 
     /**
@@ -29,15 +30,19 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin() || $user->isContentMng();
+
     }
 
     /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, Post $post): bool
+    //I dont think content creators should be able to edit posts , just delete them 
     {
-        return $user->isAdmin() || $user->isEditor();
+        return false; 
+
+        
     }
 
     /**
@@ -45,7 +50,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin() || $user->isContentMng();
     }
 
     /**
@@ -53,7 +58,7 @@ class PostPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**
@@ -61,7 +66,7 @@ class PostPolicy
      */
     public function restore(User $user, Post $post): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**
@@ -69,7 +74,7 @@ class PostPolicy
      */
     public function forceDelete(User $user, Post $post): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +82,7 @@ class PostPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**
@@ -85,6 +90,7 @@ class PostPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
+        
     }
 }

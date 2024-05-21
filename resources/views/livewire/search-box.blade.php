@@ -1,5 +1,24 @@
 <div id="search-box">
     <div>
+        <div class="container mx-auto mt-2 mb-10">
+            @auth
+            @if (auth()->user()->is_approved)
+                <div class="flex justify-start mb-4">
+                    <a href="{{ route('posts.create') }}" class="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center">
+                        Create New Post
+                    </a>
+                </div>
+            @else
+                <div class="text-red-500">
+                    You need to be approved to create a post.
+                </div>
+            @endif
+            @endauth
+    
+            <!-- Rest of your content -->
+        </div>
+    
+        
         <h3 class="text-lg font-semibold text-gray-900 mb-3">Search</h3>
         <div class="w-52 flex rounded-2xl bg-gray-100 py-2 px-3 mb-3 items-center">
             <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

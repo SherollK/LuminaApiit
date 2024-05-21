@@ -12,6 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -21,67 +23,29 @@ class User extends Authenticatable implements FilamentUser
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    //defining degree programmes
-    const DEGREE_COMPUTING = 'COMPUTING';
-    const DEGREE_LAW = 'LAW';
-    const DEGREE_BUSINESS = 'BUSINESS';
-    
-    const DEGREES = [
-        self::DEGREE_COMPUTING => 'Degree of Computing',
-        self::DEGREE_LAW => 'Degree of Law',
-        self::DEGREE_BUSINESS => 'Degree of Business',
-    ];
-
-    //defining years
-    const LEVEL4 = 'LEVEL_4';
-    const LEVEL5 = 'LEVEL_5';
-    const LEVEL6 = 'LEVEL_6';
-
-    const LEVELS = [
-        self::LEVEL4 => 'Level 4',
-        self::LEVEL5 => 'Level 5',
-        self::LEVEL6 => 'Level 6',
-    ];
-
-    //defining categories
-    const CAT_FOUNDATION = 'FOUNDATION';
-    const CAT_DEGREE = 'DEGREE';
-    const CAT_CONSTANT = 'CONSTANT';
-    const CAT_VISITING = 'VISITING';
-    const CAT_OTHER = 'OTHER';
-
-    const CATEGORIES = [
-        self::CAT_FOUNDATION => 'Foundation',
-        self::CAT_DEGREE => 'Degree',
-        self::CAT_CONSTANT => 'Full time',
-        self::CAT_VISITING => 'Part time',
-        self::CAT_OTHER => 'Other',
-    ];
-
-    //defining roles for registering users
     const ROLE_ADMIN = 'ADMIN';
-    const ROLE_EDITOR = 'EDITOR';
-    const ROLE_MODERATOR = 'MODERATOR';
-    const ROLE_USER_MANAGER = 'USER_MANAGER';
-    const ROLE_TAG_MANAGER = 'TAG_MANAGER';
-    const ROLE_ANALTIC = 'ANALTIC';
+    const ROLE_CONTENT_MNG = 'CONTENT_MNG';
+    const ROLE_CATEGORY_MNG = "CATEGORY_MNG";
+    const ROLE_USER_MNG = "USER_MNG";
+    const ROLE_ALUMINI = 'ALUMINI';
+    const ROLE_USER = "USER";
+    const ROLE_DEFAULT = "USER";
+    const ROLE_OTHER = 'Other';
 
-    const ROLE_USER = 'USER';
-    const ROLE_STAFF = 'STAFF';
-    const ROLE_ALUMNI = 'ALUMNI';
-    const ROLE_DEFAULT = self::ROLE_USER;
+    //commenting this because we need an admin user.
 
     const ROLES = [
         self::ROLE_ADMIN => 'Admin',
-        self::ROLE_EDITOR => 'Content Creator Admin',
-        self::ROLE_MODERATOR => 'Moderator Admin',
-        self::ROLE_USER_MANAGER => 'User Manager Admin',
-        self::ROLE_TAG_MANAGER => 'Tag Manager Admin',
-        self::ROLE_ANALTIC => 'Analytical Adimn',
+        self::ROLE_CONTENT_MNG => 'Content Management Admin',
+        self::ROLE_CATEGORY_MNG => 'Category Mangement Admin',
+        self::ROLE_USER_MNG  => 'User Management Admin',
+        self::ROLE_ALUMINI => 'Past Student',
+        self::ROLE_USER => 'Current Student',
+        self::ROLE_OTHER => 'Other',
 
-        self::ROLE_USER => 'Student',
-        self::ROLE_STAFF => 'Staff',
-        self::ROLE_ALUMNI => 'Alumni',
+
+
+
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -93,83 +57,24 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === self::ROLE_ADMIN;
     }
 
-    public function isEditor(){
-        return $this->role === self::ROLE_EDITOR;
+    public function isContentMng(){
+        return $this->role === self::ROLE_CONTENT_MNG;
     }
 
-    public function isModerator(){
-        return $this->role === self::ROLE_MODERATOR;
+    public function isCategoryMng(){
+        return $this->role === self::ROLE_CATEGORY_MNG;
     }
 
-    public function isUserManager(){
-        return $this->role === self::ROLE_USER_MANAGER;
+    public function isUserMng(){
+        return $this->role === self::ROLE_USER_MNG;
     }
 
-    public function isTagManager(){
-        return $this->role === self::ROLE_TAG_MANAGER;
+    public function isAlumini(){
+        return $this->role === self::ROLE_ALUMINI;
     }
 
-    public function isAnalytic(){
-        return $this->role === self::ROLE_ANALTIC;
-    }
-
-    public function isStaff(){
-        return $this->role === self::ROLE_STAFF;
-    }
-
-    public function isAlumni(){
-        return $this->role === self::ROLE_ALUMNI;
-    }
-
-    //to show available roles in the registration dropdown
-    public static function getAvailableRoles()
-    {
-        $availableRoles = self::ROLES;
-
-        // Exclude admin and editor roles
-        unset($availableRoles[self::ROLE_ADMIN]);
-        unset($availableRoles[self::ROLE_EDITOR]);
-        unset($availableRoles[self::ROLE_MODERATOR]);
-        unset($availableRoles[self::ROLE_USER_MANAGER]);
-        unset($availableRoles[self::ROLE_TAG_MANAGER]);
-        unset($availableRoles[self::ROLE_ANALTIC]);
-
-        return $availableRoles;
-    }
-
-    public static function getStudentCategories()
-    {
-        $studentCategories = self::CATEGORIES;
-
-        // Exclude admin and editor roles
-        unset($studentCategories[self::CAT_CONSTANT]);
-        unset($studentCategories[self::CAT_VISITING]);
-        unset($studentCategories[self::CAT_OTHER]);
-
-        return $studentCategories;
-    }
-
-    public static function getStaffCategories()
-    {
-        $staffCategories = self::CATEGORIES;
-
-        // Exclude admin and editor roles
-        unset($staffCategories[self::CAT_FOUNDATION]);
-        unset($staffCategories[self::CAT_DEGREE]);
-
-        return $staffCategories;
-    }
-
-    public static function getYears()
-    {
-        $years = self::LEVELS;
-        return $years;
-    }
-
-    public static function getDegrees()
-    {
-        $degrees = self::DEGREES;
-        return $degrees;
+    public function isStudent(){
+        return $this->role === self::ROLE_USER;
     }
 
 
@@ -183,9 +88,12 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'role',
-        'category',
-        'year',
-        'degree'
+
+        //mass asigning is_aproved to students who have
+        //who can post
+            //students
+
+        'is_approved'
     ];
 
     /**
@@ -232,4 +140,46 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+   
+    public static function getAvailableRoles()
+    {
+        $availableRoles = self::ROLES;
+        unset($availableRoles[self::ROLE_CONTENT_MNG]);
+        unset($availableRoles[self::ROLE_CATEGORY_MNG]);
+        unset($availableRoles[self::ROLE_USER_MNG]);
+        unset($availableRoles[self::ROLE_ADMIN]);
+
+        return $availableRoles;
+
+
+    }
+
+
+    //for the pivot table for matching users with categories.
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_user');
+    }
+
+    public function getDescription(): string
+    {
+        // Define descriptions for each role
+        $descriptions = [
+            self::ROLE_ALUMINI => 'Verify if these users are credible alumini',
+            self::ROLE_USER => 'Verify if these users are credible students',
+            self::ROLE_OTHER => "Verify what users they are and give them necessary roles. "
+            // Add descriptions for other roles here
+        ];
+
+        // Return the description based on the role of the user
+        return $descriptions[$this->role] ?? '';
+    }
+
 }
+

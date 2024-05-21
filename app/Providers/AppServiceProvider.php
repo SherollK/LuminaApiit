@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Notifications\Livewire\DatabaseNotifications;
+use App\Models\Post;
+use App\Observers\PostApprovalObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
+
     {
-        //
+        // DatabaseNotifications::trigger('filament.notifications.database-notifications-trigger');
+        Post::observe(PostApprovalObserver::class);
     }
 }

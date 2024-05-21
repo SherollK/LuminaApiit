@@ -4,7 +4,40 @@
             {{ __('Admin') }}
         </x-nav-link>
     @endcan
+
+    {{-- @php
+    $unreadNotifications = auth()->user()->unreadNotifications;
+    @endphp
+    <li class="relative">
+        <button class="relative text-gray-600 hover:text-gray-800 focus:outline-none" id="notificationButton">
+            <i class="far fa-bell"></i>
+            @if($unreadNotifications->count())
+                <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $unreadNotifications->count() }}</span>
+            @endif
+        </button>
+        <div id="notificationDropdown" class=" absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg overflow-hidden z-20">
+            <div class="py-2">
+                <span class="block px-4 py-2 text-sm text-gray-700">You have {{ $unreadNotifications->count() }} notifications</span>
+            </div>
+            <div class="border-t border-gray-200"></div>
+            <div class="py-2">
+                @foreach($unreadNotifications as $notification)
+                    <a href="{{ route('notifications.show', $notification->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-envelope mr-2"></i> {{ $notification->data['message'] }}
+                        <span class="float-right text-gray-500 text-xs">{{ $notification->created_at->diffForHumans() }}</span>
+                    </a>
+                @endforeach
+            </div>
+            <div class="border-t border-gray-200"></div>
+            <a href="{{ route('notifications.markAllRead') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mark all as read</a>
+        </div>
+    </li> --}}
     <x-dropdown align="right" width="48">
+        <div>
+            {{-- @include('fillament.notifications.database-notifications-trigger') --}}
+            {{-- @livewire('database-custom-notifications') --}}
+            
+        </div>
         <x-slot name="trigger">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <button
@@ -33,15 +66,22 @@
                 {{ __('Manage Account') }}
             </div>
 
-            <x-dropdown-link wire:navigate href="{{ route('profile.show') }}">
-                {{ __('Profile') }}
-            </x-dropdown-link>
 
+
+            <x-dropdown-link wire:navigate href="{{ route('user.profile', ['id' => auth()->id()]) }}">
+    {{ __('Profile') }}
+</x-dropdown-link>
+{{-- 
+            put a link to the actual profile here --}}
+            <x-dropdown-link wire:navigate href="{{ route('profile.show') }}">
+                {{ __('Edit Profile') }}
+            </x-dropdown-link>
+ 
             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                 <x-dropdown-link wire:navigate href="{{ route('api-tokens.index') }}">
                     {{ __('API Tokens') }}
                 </x-dropdown-link>
-            @endif
+            @endif 
 
             <div class="border-t border-gray-200"></div>
 
@@ -55,4 +95,12 @@
             </form>
         </x-slot>
     </x-dropdown>
+   
 </div>
+
+{{-- <script>
+    document.getElementById('notificationButton').addEventListener('click', function() {
+        const dropdown = document.getElementById('notificationDropdown');
+        dropdown.classList.toggle('hidden');
+    });
+</script> --}}

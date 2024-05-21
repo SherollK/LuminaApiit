@@ -6,3 +6,6 @@
     @endforeach
   </div>
 </div>
+
+{{-- The tiny box that is used to list all the cateogories  --}}
+{{-- Need something similar   --}}

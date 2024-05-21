@@ -1,4 +1,6 @@
 <x-app-layout>
+   
+{{-- This shows the actual scroll list of the blogs --}}
     <div class="w-full grid grid-cols-4 gap-10">
         <div class="md:col-span-3 col-span-4">
             <livewire:post-list />

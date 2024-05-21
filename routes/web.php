@@ -3,10 +3,10 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Actions\Fortify\CreateNewUser;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\NotificationController;
 
-use App\Http\Controllers\RegisterStepTwoController;
-use App\Http\Controllers\RegisterStepOneController;
 
 
 /*
@@ -24,30 +24,33 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('/blog/create', [PostController::class, 'create'])->name('posts.create');
+
+Route::get('/events', [EventsController::class, 'index'])->name('events.index');
+
+
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
-//Route::post('/registerUser', [RegisterStepOneController::class, 'toResponse']); 
-//Route::get('/registerUser', [RegisterStepOneController::class, 'toResponse']); 
-
-Route::post('/register', [RegisterStepOneController::class, 'toResponse'])->name('register');
-
-Route::post('/register2', [RegisterStepTwoController::class, 'store'])->name('register2.post');
-Route::get('/register2', [RegisterStepTwoController::class, 'create'])->name('register2.create');
-
-//Route::group(['middleware'=> [
-//    'auth',
-//    'verified',
-//  ]], function () {
-//  
-//    Route::group(['middleware'=>['registration_completed']], function() {
-//      
-//      
-//    });
-//  
-//    // Adding route to second layer of registration
-//    //Route::get('/register2', [RegisterStepTwoController::class, 'create'])->name('register2.create');
-//    //Route::post('/register2', [RegisterStepTwoController::class, 'store'])->name('register2.post');
-//  });
-//  
+Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('events.show');
 
 
+//Full page livewire component to create a post
+
+
+//make different ones based on the user if
+Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('user.profile');
+// routes/web.php
+
+
+Route::get('/notifications/{id}', [NotificationController::class, 'show'])->name('notifications.show');
+Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+});

@@ -28,4 +28,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('categories');
     }
+
+    //the slug can be automatically generated 
+    //
 };
