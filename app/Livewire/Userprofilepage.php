@@ -12,6 +12,9 @@ class UserprofilePage extends Component
     // public $bio = ""; 
     public $userProfile;
     public $userId;
+    public $likesCount; 
+    public $commentsCount; 
+    public $postsCount; 
 
  
 
@@ -22,9 +25,17 @@ class UserprofilePage extends Component
         $this->user = User::findOrFail($userId);
         $this->userProfile = UserProfile::where('user_id', $userId)->first();
         //we can pass all the properties that we need on here so we can show it on the blog?
-     
+        $this->likesCount = $this->user->likes()->count();
+
+// Count of comments
+        $this->commentsCount = $this->user->comments()->count();
+
+// Count of posts
+        // $this->postsCount = $this->user->posts()->count();
         
     }
+
+    
 
     public function updateProfile()
     {

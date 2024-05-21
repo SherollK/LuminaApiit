@@ -5,7 +5,7 @@
         </x-nav-link>
     @endcan
 
-    @php
+    {{-- @php
     $unreadNotifications = auth()->user()->unreadNotifications;
     @endphp
     <li class="relative">
@@ -31,7 +31,7 @@
             <div class="border-t border-gray-200"></div>
             <a href="{{ route('notifications.markAllRead') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mark all as read</a>
         </div>
-    </li>
+    </li> --}}
     <x-dropdown align="right" width="48">
         <div>
             {{-- @include('fillament.notifications.database-notifications-trigger') --}}

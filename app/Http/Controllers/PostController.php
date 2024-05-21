@@ -19,21 +19,32 @@ class PostController extends Controller
         if(!$user)
         {
             $posts = Post::all();
-        }
-
-        else{
-            $categoryIds = $user->categories->pluck('id');
-            $posts = Post::whereHas('categories', function ($query) use ($categoryIds) {
-                $query->whereIn('categories.id', $categoryIds);
-            })
-                ->where($this->visibility(),true);
-        }
-        return view('posts.index',
+            return view('posts.index',
             [
                 'categories' => Category::all(),
                 'posts' => $posts,
             ]
         );
+            
+        }
+
+        else {
+            $categoryIds = $user->categories->pluck('id');
+            $posts = Post::whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            })
+            ->visible()
+            ->get();
+
+            return view('posts.index',
+            [
+                'categories' => Category::all(),
+                'posts' => $posts,
+            ]
+        );
+        }
+        
+       
 
     }
 

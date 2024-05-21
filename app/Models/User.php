@@ -146,6 +146,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(UserProfile::class);
     }
 
+   
     public static function getAvailableRoles()
     {
         $availableRoles = self::ROLES;

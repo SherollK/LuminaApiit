@@ -12,14 +12,12 @@
 
                 <div class="flex justify-center py-4  lg:pt-4 pt-8">
                     <div class="w-20 p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span class="text-sm text-blueGray-400">Posts</span>
+                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$likesCount}}</span><span class="text-sm text-blueGray-400"> Likes</span>
                     </div>
                     <div class="w-20 p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span class="text-sm text-blueGray-400">Comments</span>
+                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{{$commentsCount}}</span><span class="text-sm text-blueGray-400">Comments</span>
                     </div>
-                    <div class="w-20 p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span class="text-sm text-blueGray-400">Likes</span>
-                    </div>
+                   
                 </div>
 
 
@@ -31,7 +29,7 @@
             </h3>
             <div class="text-sm font-bold text-green-700">Active User</div>
             <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-               {{ $userProfile->jobDescription}}
+              {{ $userProfile->jobDescription}}
 
               <div class="p-3 mt-5">
                   <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-md font-medium mr-3 text-green-700 ring-1 ring-inset ring-green-600/20">{{$userProfile->location}}</span>

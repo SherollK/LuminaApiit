@@ -6,23 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
+        // Change the default value of the 'hide' column to true
         Schema::table('posts', function (Blueprint $table) {
-            $table->boolean('hide')->default(true);
+            $table->boolean('hide')->default(true)->change();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
+        // Revert the default value of the 'hide' column to false
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('hide');
+            $table->boolean('hide')->default(false)->change();
         });
     }
 };
+

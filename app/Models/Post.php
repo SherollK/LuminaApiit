@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
@@ -62,21 +63,29 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
     }
 
-    public function hide(): bool
+  /**
+     * Scope a query to only include visible posts based on the author's role and hide status.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible(Builder $query)
     {
-        // Check if the author has the role of ROLE_ALUMINI or CONTENT_MNG
-        if ($this->author->role == "ROLE_ALUMINI" || $this->author->role == "CONTENT_MNG") {
-            // If the user is an alumnus or content manager, get the value of hide
-            $hide = $this->author->hide;
-
-            // Return false if hide is false, indicating that the post should not be hidden
-            $hide = false; 
-            return $hide;
-        }
-
-        // If the user does not have the specified roles, the post should be hidden 
-        $hide = true;
-        return $hide
+        return $query->where(function ($query) {
+            $query->whereHas('author', function ($query) {
+                $query->where(function ($query) {
+                    $query->where('role', 'ROLE_ALUMINI')
+                          ->orWhere('role', 'CONTENT_MNG');
+                })
+                ->where('hide', false);
+            })
+            ->orWhereDoesntHave('author', function ($query) {
+                $query->where(function ($query) {
+                    $query->where('role', '<>', 'ROLE_ALUMINI')
+                          ->where('role', '<>', 'CONTENT_MNG');
+                });
+            });
+        });
     }
 
 
