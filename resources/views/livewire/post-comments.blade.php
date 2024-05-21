@@ -1,7 +1,7 @@
 <div class="pt-10 mt-10 border-t border-gray-100 comments-box">
     <h2 class="mb-5 text-2xl font-semibold text-gray-900">Discussions</h2>
     @auth
-        @if (auth()->user()->hasVerifiedEmail())
+        @if (auth()->user()->is_approved)
         <textarea wire:model="comment"
             class="w-full p-4 text-sm text-gray-700 border-gray-200 rounded-lg bg-gray-50 focus:outline-none placeholder:text-gray-400"
             cols="30" rows="7"></textarea>
@@ -11,8 +11,8 @@
         </button>
         @else
         <p class="text-red-500 mb-3">
-            Please verify your email to post comments:
-            <a href="{{ route('verification.notice') }}">Verify Email</a>
+            You should be verified to post comments
+            <!--<a href="{{ route('verification.notice') }}">Verify Email</a>-->
         </p>
         @endif
     @else
