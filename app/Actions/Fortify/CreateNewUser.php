@@ -48,7 +48,7 @@ class CreateNewUser implements CreatesNewUsers
 
         ]) ;
 
-        $graduation_year = $input['graduatingYear'];
+        $graduation_year = null;
         $location = $input['location'];
         $level = $input['level'];
 
