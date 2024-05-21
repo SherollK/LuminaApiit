@@ -91,5 +91,6 @@ class PostPolicy
     public function forceDeleteAny(User $user): bool
     {
         return $user->isAdmin();
+        
     }
 }

@@ -19,6 +19,6 @@ class UserStatsWidget extends BaseWidget
             Stat::make('Total Alumini Members', User::where('role', User::ROLE_ALUMINI)->count()),
             Stat::make('Total Students', User::where('role', User::ROLE_USER)->count()),
         ];
-        
+
     }
 }

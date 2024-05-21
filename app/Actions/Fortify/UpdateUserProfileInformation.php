@@ -51,6 +51,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'email_verified_at' => null,
         ])->save();
 
+        // Handle additional fields based on $fields:
+        foreach ($this->state as $fieldName => $fieldValue) {
+            if (array_key_exists($fieldName, $this->fields)) {
+                $user->$fieldName = $fieldValue; // Update based on defined fields
+            }
+        }
+
         $user->sendEmailVerificationNotification();
     }
 }

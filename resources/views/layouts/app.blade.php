@@ -24,10 +24,10 @@
 
         @yield('hero')
 
-        <main class="container mx-auto px-5 flex flex-grow">
+        <main class="container mx-auto px-5 flex flex-grow"  style="justify-content: center">
             {{ $slot }}
         </main>
-    
+
         @include('layouts.partials.footer')
 
         @stack('modals')

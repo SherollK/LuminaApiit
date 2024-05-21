@@ -20,11 +20,11 @@ return new class extends Migration
             $table -> string('bio');
             $table -> string('location');
             $table -> string('jobDescription')->nullable();
-            //job descriptions can include job des. for alumini , and for students it can be the level , 
+            //job descriptions can include job des. for alumini , and for students it can be the level ,
             $table -> integer('graduationYear')->nullable();
 
 
-            //there;s a typo here leave it here 
+            //there;s a typo here leave it here
             $table -> string('verifedStatus');
 
 

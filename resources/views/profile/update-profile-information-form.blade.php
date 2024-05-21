@@ -85,24 +85,24 @@
 
 
          <div class="col-span-6 sm:col-span-4">
-          
+
 
 
             <div class="container mx-auto px-4">
                 @livewire('updateProfileForm')
             </div>
-            
-    
+
+
         </div>
 
-{{-- 
+{{--
         Profile actions --}}
         {{-- <div class="col-span-6 sm:col-span-4">
             <x-label for="jobDescription" value="{{ __('Job Description') }}" />
             <x-input id="jobDescription" type="text" class="mt-1 block w-full" wire:model="state.jobDescription" required />
             <x-input-error for="jobDescription" class="mt-2" />
         </div>
-        
+
         <div class="col-span-6 sm:col-span-4">
             <x-label for="level" value="{{ __('Level') }}" />
             <select id="level" wire:model="state.level" class="mt-1 block w-full">
@@ -114,7 +114,7 @@
             </select>
             <x-input-error for="level" class="mt-2" />
         </div>
-        
+
         <div class="col-span-6 sm:col-span-4">
             <x-label for="location" value="{{ __('Location') }}" />
             <x-input id="location" type="text" class="mt-1 block w-full" wire:model="state.location" required />
@@ -136,7 +136,7 @@
         </div>
         --}}
 
-      
+
 
     </x-slot>
 

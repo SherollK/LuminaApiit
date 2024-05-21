@@ -8,11 +8,11 @@ use Illuminate\Auth\Access\Response;
 class UserPolicy
 {
     //if they are user or an admin , then they are viewadmins?
-    //view admin is if they can access the panel 
+    //view admin is if they can access the panel
     public function viewAdmin(User $user) : bool{
         return $user->isAdmin() || $user->isUserMng() || $user->isContentMng() || $user->isCategoryMng();
     }
-    
+
     // public function isAdmin(){
     //     return $this->role === self::ROLE_ADMIN;
     // }
@@ -24,11 +24,11 @@ class UserPolicy
     // public function isCategoryMng(){
     //     return $this->role === self::ROLE_CATEGORY_MNG;
     // }
-    
+
     // public function isUserMng(){
     //     return $this->role === self::ROLE_USER_MNG;
     // }
-    
+
     // public function isAlumini(){
     //     return $this->role === self::ROLE_ALUMINI;
     // }
@@ -36,7 +36,7 @@ class UserPolicy
     // public function isStudent(){
     //     return $this->role === self::ROLE_USER;
     // }
-    
+
     /**
      * Determine whether the user can view any models.
      */
@@ -44,7 +44,7 @@ class UserPolicy
      //do we need to give the admin this much power
     public function viewAny(User $user): bool
     {
-        //comment out to limit admin power 
+        //comment out to limit admin power
         return $user->isAdmin();
     }
 
@@ -71,7 +71,7 @@ class UserPolicy
     public function update(User $user, User $model): bool
 
     {
-        //admins cant update anything , plus levels and everything is in 
+        //admins cant update anything , plus levels and everything is in
         return $user->isAdmin();
         //only the admin can change the user roles
     }

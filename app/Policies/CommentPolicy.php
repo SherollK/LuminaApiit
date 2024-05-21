@@ -2,26 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\Events;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class EventsPolicy
+class CommentPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isContentMng();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Events $events): bool
+    public function view(User $user, Comment $comment): bool
     {
-        return $user->isAdmin() || $user->isContentMng();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
@@ -29,38 +29,38 @@ class EventsPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isContentMng();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Events $events): bool
+    public function update(User $user, Comment $comment): bool
     {
-        return $user->isAdmin() || $user->isContentMng();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Events $events): bool
+    public function delete(User $user, Comment $comment): bool
     {
-        return $user->isAdmin() || $user->isContentMng();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Events $events): bool
+    public function restore(User $user, Comment $comment): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isModerator();
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Events $events): bool
+    public function forceDelete(User $user, Comment $comment): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isModerator();
     }
 }

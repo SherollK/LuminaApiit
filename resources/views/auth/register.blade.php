@@ -46,15 +46,12 @@ use App\Models\Category;
                      @endforeach
                 </select>
             </div>
-            {{-- After this a[[;y these in the form submission controller]] --}}
-
-         
 
             {{-- Graduated YEar --}}
-            <div class="mt-4">
+            {{--<div class="mt-4">
                 <x-label for="date" value="{{ __('Graduating/Graduated Year') }}" />
                 <input id="graduatingYear" type="month" name="graduatingYear" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm">
-            </div>
+            </div>--}}
 
             {{-- Associated Campus --}}
             <div class="mt-4">
@@ -80,14 +77,14 @@ use App\Models\Category;
             {{-- ASk for job description --}}
             <div class="mt-4">
                 <x-label for="job_description" value="{{ __('Describe your current position') }}" />
-                <input id="job_description" type="text" name="job_description" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm">
+                <input id="job_description" type="text" name="job_description" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm" required>
             </div>
 
-            
+
             {{-- Bio --}}
          <div class="mt-4">
               <x-label for="bio" value="{{ __('Tell us a bit about yourself (Your Bio)') }}" />
-               <textarea id="bio" name="bio" rows="4" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm"></textarea>
+               <textarea id="bio" name="bio" rows="4" class="block mt-1 w-full border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-sm" required></textarea>
           </div>
 
 
@@ -103,19 +100,19 @@ use App\Models\Category;
                 @endforeach
             </div>
         </div>
-        
-        
-
-            
 
 
 
 
-            
 
 
 
-           
+
+
+
+
+
+
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">

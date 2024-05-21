@@ -69,7 +69,7 @@ class PostResource extends Resource
                     ->multiple()
                     ->relationship('categories', 'title')
                     ->searchable(),
-                
+
                 ]
             ),
         ]);
@@ -92,7 +92,7 @@ class PostResource extends Resource
             )
             ->actions([Tables\Actions\EditAction::make(),
             self::ShowAction()])
-            
+
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make(), Tables\Actions\ForceDeleteBulkAction::make(), Tables\Actions\RestoreBulkAction::make()])])
             ->emptyStateActions([Tables\Actions\CreateAction::make()]);
     }
@@ -123,24 +123,24 @@ class PostResource extends Resource
             ->icon('heroicon-o-check-circle')
             ->action(fn (Post $record) => $record->update(['hide' => false]));
            
-            $recipient = $record()->user;
-            Notification::make()
-                  ->title('Your post was approved')
-                   ->success()
-                   ->body('Your post is now visible to all of our community.')
-                   ->sendToDatabase($recipient)
-                   ->actions([
-                       Action::make('view')
-                           ->button()
-                           ->markAsRead(),
-                   ])
-                   ->send();
-            $recipient = $record()->user;
-            Notification::make()
-                  ->title('Your post was approved')
-                   ->success()
-                   ->body('Your post is now visible to all of our community.')
-                   ->sendToDatabase($recipient);
+            // $recipient = $record()->user;
+            // Notification::make()
+            //       ->title('Your post was approved')
+            //        ->success()
+            //        ->body('Your post is now visible to all of our community.')
+            //        ->sendToDatabase($recipient)
+            //        ->actions([
+            //            Action::make('view')
+            //                ->button()
+            //                ->markAsRead(),
+            //        ])
+            //        ->send();
+            // $recipient = $record()->user;
+            // Notification::make()
+            //       ->title('Your post was approved')
+            //        ->success()
+            //        ->body('Your post is now visible to all of our community.')
+            //        ->sendToDatabase($recipient);
                 //    ->actions([
                 //        Action::make('view')
                 //            ->button()

@@ -7,8 +7,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg"> 
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200"> 
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <form action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         <!-- Bio -->
@@ -45,7 +45,7 @@
 
                             <x-input id="graduationYear" class="block mt-1 w-full" type="text" name="graduationYear" :value="$user->graduationYear"></x-input>
                             </div>
-                        
+                    </form>
                         </div>
                         </div>
                         </div>

@@ -34,10 +34,10 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('posts.sh
 Route::get('/events/{events:slug}', [EventsController::class, 'show'])->name('events.show');
 
 
-//Full page livewire component to create a post 
+//Full page livewire component to create a post
 
 
-//make different ones based on the user if 
+//make different ones based on the user if
 Route::get('/user-profile/{id}', [UserProfileController::class, 'show'])->name('user.profile');
 // routes/web.php
 
@@ -52,5 +52,5 @@ Route::middleware([
 ])->group(function () {
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
-    // })->name('dashboard');   
+    // })->name('dashboard');
 });
