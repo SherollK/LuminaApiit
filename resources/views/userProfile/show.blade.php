@@ -4,7 +4,7 @@
             {{-- Livewire components --}}
            
         
-                <livewire:userprofilePage :user-id="$userId" />
+                <livewire:Userprofilepage :user-id="$userId" />
        
                
     
