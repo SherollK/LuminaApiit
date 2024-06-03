@@ -1,7 +1,7 @@
 <x-app-layout>
    
     {{-- This shows the actual scroll list of the events --}}
-        <div class="w-full grid grid-cols-1 gap-10 flex-col flex-wrap">
+        <div class="w-full grid grid-cols-1 gap-10 flex-col flex-wrap px-10 ">
             {{-- The inner box --}}
             <div class="flex-col flex-wrap">
                 {{-- Livewire components --}}

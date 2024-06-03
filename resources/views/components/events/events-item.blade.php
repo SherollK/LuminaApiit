@@ -1,6 +1,6 @@
 @props(['event'])
 <article {{ $attributes->merge(['class' => '[&:not(:last-child)]:border-b border-gray-100 pb-10']) }}>
-    <div class="article-body grid grid-cols-12 gap-3 mt-5 items-start">
+    <div class="article-body grid grid-cols-12 gap-3 mt-5 items-start px-10">
         <div class="article-thumbnail col-span-4 flex items-center">
             <a wire:navigate href="{{ route('events.show', $event->slug)}}">
                 <img class="mw-100 mx-auto rounded-xl" src="{{ $event->getThumbnailUrl()}}" alt="thumbnail">

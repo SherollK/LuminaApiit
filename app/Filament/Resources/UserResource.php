@@ -76,6 +76,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 self::approveActions(), // Call the method using `self::`
             ])
             ->bulkActions([

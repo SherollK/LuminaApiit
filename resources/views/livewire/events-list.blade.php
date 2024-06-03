@@ -50,7 +50,7 @@
 
 
 
-        <span class="py-10 block"> 
+        <span class="py-10 block px-5"> 
             @foreach ($this->events as $event)
                 <x-events.events-item wire:key="{{$event->id}}" :event="$event" />
                 

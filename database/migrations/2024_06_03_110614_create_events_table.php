@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 
+
 return new class extends Migration
 {
     /**
@@ -12,22 +13,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-
+            $table->timestamps();
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
             $table->string('title');
-            $table->string('sub_title');
+            $table->text('description');
             $table->string('slug')->unique();
-            $table->text('body');
-
+            $table->date('date');
+            $table->time('time');
+            $table->text('location');
             $table->timestamp('published_at')->nullable();
-            $table->boolean('featured')->default(false);
-            
             $table->softDeletes();
 
-            $table->timestamps();
 
         });
     }
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('events');
     }
 };
