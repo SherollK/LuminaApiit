@@ -61,6 +61,7 @@ class PostList extends Component
     public function posts()
     {
         return Post::published() //from the scope 
+            ->visible() 
             ->with('author', 'categories') //Eager loading 
             ->orderBy('published_at', $this->sort)
             ->when($this->activeCategory, function ($query) {

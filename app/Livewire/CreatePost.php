@@ -51,6 +51,7 @@ class CreatePost extends Component implements HasForms
         
 
         $post->save();
+        return redirect('/')->with('success', 'Post created successfully!');
 
     }
 

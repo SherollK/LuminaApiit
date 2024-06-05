@@ -71,20 +71,15 @@ class Post extends Model
      */
 
 
-
      public function scopeVisible(Builder $query)
      {
-         // Check for posts with authors who have allowed roles and 'hide' is false
+         // Check for posts with authors who have allowed roles or 'hide' is false
          $query->whereHas('author', function ($query) {
-             $query->where(function ($query) {
-                 $query->where('role', 'ROLE_ALUMNI')
-                     ->orWhere('role', 'CONTENT_MNG');
-             })
-             ->where('hide', false);
+             $query->where('role', 'ROLE_ALUMNI')
+                   ->orWhere('role', 'CONTENT_MNG')
+                   ->orWhere('hide', false);
          });
      }
-     
-
     //returns posts that were published before today.
 
     public function scopePublished($query)

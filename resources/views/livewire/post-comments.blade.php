@@ -28,12 +28,32 @@
                 <div class="text-sm text-justify text-gray-700">
                     {{ $comment->comment }}
                 </div>
+
+                @if($comment->user_id == Auth::id())
+
+                <div class="flex justify-end gap-4">
+                  <button class="inline-flex items-center justify-center h-8 px-2 mt-1 font-medium text-white text-sm transition duration-200 bg-blue-700 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none" wire:click="editComment({{ $comment->id }})">Edit</button>
+                 <button class="inline-flex items-center justify-center h-8 px-2 mt-1 font-medium text-white text-sm transition duration-200 bg-blue-700 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none" wire:click="deleteComment({{ $comment->id }})">Delete</button>
+                </div>
+                 @endif
+
+
+                @if($editingCommentId == $comment->id)
+                <div class="mb-4">
+                    <input type="text" wire:model="newCommentContent">
+                    <button class="inline-flex items-center justify-center h-10 px-4 mt-3 font-medium tracking-wide text-white transition duration-200 bg-blue-500 rounded-lg hover:bg-gray-800 focus:shadow-outline focus:outline-none" wire:click="updateComment">Update</button>
+                </div>
+            @endif
+
             </div>
         @empty
             <div class="text-center text-gray-500">
                 <span> No Comments Posted</span>
             </div>
         @endforelse
+
+        
+       
     </div>
     <div class="my-2">
         {{ $this->comments->links() }}
